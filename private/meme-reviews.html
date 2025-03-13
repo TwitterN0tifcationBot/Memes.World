@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Protected Page</title>
+</head>
+<body>
+    <h1>Password Protected Page</h1>
+    <form id="password-form">
+        <input type="password" id="password" placeholder="Enter password">
+        <button id="submit-btn">Submit</button>
+    </form>
+    <div id="content" style="display: none;">
+        <h2>Requested Images/Memes</h2>
+        <p>This page is only accessible with the correct password.</p>
+        <img src="meme1.jpg" alt="Meme 1">
+        <img src="meme2.jpg" alt="Meme 2">
+        <button id="meme-btn">Get Meme</button>
+        <script>
+            const passwordForm = document.getElementById('password-form');
+            const passwordInput = document.getElementById('password');
+            const submitBtn = document.getElementById('submit-btn');
+            const contentDiv = document.getElementById('content');
+            const memeBtn = document.getElementById('meme-btn');
+
+            submitBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const password = passwordInput.value;
+                if (password === 'IamNotAnStaff.Member&') {
+                    contentDiv.style.display = 'block';
+                    passwordForm.style.display = 'none';
+                } else {
+                    alert('Incorrect password');
+                }
+            });
+
+            memeBtn.addEventListener('click', () => {
+                // Add logic to get meme from meme-developer.html
+            });
+        </script>
+    </div>
+</body>
+</html>

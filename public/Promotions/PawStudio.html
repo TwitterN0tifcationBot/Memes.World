@@ -1,0 +1,28 @@
+<div class="partnership-page">
+  <h1>Partnership with PawStudio</h1>
+  <p>Join our Discord server to get exclusive benefits, including a premium subscription!</p>
+  <a href="https://discord.gg/BtxXDjvnht" target="_blank">Join Now</a>
+  <script>
+    const discordInviteLink = 'https://discord.gg/BtxXDjvnht';
+    const premiumSubscriptionButton = document.createElement('button');
+    premiumSubscriptionButton.textContent = 'Claim Premium Subscription';
+    premiumSubscriptionButton.style.display = 'none';
+
+    function checkDiscordMembership() {
+      // TO DO: implement Discord API to check membership
+      // For demonstration purposes, assume user is a member
+      const isMember = true;
+      if (isMember) {
+        premiumSubscriptionButton.style.display = 'block';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', checkDiscordMembership);
+    document.body.appendChild(premiumSubscriptionButton);
+
+    premiumSubscriptionButton.addEventListener('click', () => {
+      // TO DO: implement logic to grant premium subscription
+      alert('Premium subscription granted!');
+    });
+  </script>
+</div>

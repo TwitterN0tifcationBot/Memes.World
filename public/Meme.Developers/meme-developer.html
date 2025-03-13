@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Developer Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Meme Developer Page</h1>
+    <form id="meme-form">
+        <input type="text" id="title" placeholder="Title">
+        <input type="file" id="file" accept="image/*, video/*">
+        <button id="submit-btn">Submit</button>
+    </form>
+    <div id="meme-container"></div>
+
+    <script>
+        const form = document.getElementById('meme-form');
+        const fileInput = document.getElementById('file');
+        const titleInput = document.getElementById('title');
+        const submitBtn = document.getElementById('submit-btn');
+        const memeContainer = document.getElementById('meme-container');
+
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const title = titleInput.value;
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('file', file);
+
+            fetch('/webhook', {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                const embed = {
+                    title: `${titleInput.value} is wanting to make ${file.name}`,
+                    image_url: URL.createObjectURL(file)
+                };
+                memeContainer.innerHTML = `
+                    <h2>${embed.title}</h2>
+                    <img src="${embed.image_url}" alt="${file.name}">
+                    <button id="accept-btn">Accept</button>
+                    <button id="decline-btn">Decline</button>
+                `;
+
+                const acceptBtn = document.getElementById('accept-btn');
+                const declineBtn = document.getElementById('decline-btn');
+
+                acceptBtn.addEventListener('click', () => {
+                    // Add image/video to website
+                    console.log('Accepted');
+                });
+
+                declineBtn.addEventListener('click', () => {
+                    // Notify user via email that their request has been declined
+                    console.log('Declined');
+                });
+            })
+            .catch((error) => console.error(error));
+        });
+    </script>
+</body>
+</html>
